@@ -9,15 +9,11 @@ A streaming service like Netflix that offers authentication, the ability to watc
 - Next.js
 - Typescript
 - Tailwind
+- Axios
+- Prisma
+- MangoDB
+- bcrypt
 
 ## Design by Afsar (Figma Community):
 
 https://www.figma.com/community/file/978204688923563508
-
-## Install:
-
-npm install
-
-## Run:
-
-npm run dev
