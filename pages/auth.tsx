@@ -1,8 +1,7 @@
-'use client';
-
-import {useCallback, useState} from "react";
-import Image from 'next/image';
-import Input from "@/components/input";
+import {useCallback, useState} from 'react'
+import axios from 'axios'
+import Image from 'next/image'
+import Input from '@/components/Input'
 
 export default function Auth() {
 
@@ -16,9 +15,21 @@ export default function Auth() {
     setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
   }, [])
 
+  const register = useCallback(async () => {
+    try {
+      await axios.post('/api/register', {
+        email,
+        name,
+        password
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [email, name, password])
+
   return (
     <div className='relative h-full w-full sm:bg-[url("/images/hero.png")] bg-black bg-cover bg-left'>
-      <div className='h-full w-full bg-black bg-opacity-50'>
+      <div className='h-full w-full bg-black bg-opacity-50 overflow-clip'>
         <nav className='sm:px-8 sm:py-5 lg:px-12 p-4'>
           <Image
             className='h-auto w-auto'
@@ -57,7 +68,7 @@ export default function Auth() {
                 onChange={(e: any) => setPassword(e.target.value)}
                 type='password'
               />
-              <button className='bg-red-500 mt-4 w-full rounded-md py-3 text-white hover:bg-red-600 transition'>
+              <button onClick={register} className='bg-red-500 mt-4 w-full rounded-md py-3 text-white hover:bg-red-600 transition'>
                 {variant === 'login' ? 'Login' : 'Sign Up'}
               </button>
               <div className='text-neutral-500 mt-6'>

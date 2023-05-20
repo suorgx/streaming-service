@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
-    @apply bg-zinc-900 overflow-x-hidden;
+  @apply bg-zinc-900 overflow-x-hidden;
 }
 
 #__next,
 html,
 body {
-    @apply h-full;
+  @apply h-full;
 }
