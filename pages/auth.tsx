@@ -28,8 +28,8 @@ export default function Auth() {
   }, [email, name, password])
 
   return (
-    <div className='relative h-full w-full sm:bg-[url("/images/hero.png")] bg-black bg-cover bg-left'>
-      <div className='h-full w-full bg-black bg-opacity-50 overflow-clip'>
+    <div className='relative h-full w-full sm:bg-[url("/images/hero.png")] bg-black bg-cover bg-left overflow-hidden'>
+      <div className='h-full w-full bg-black bg-opacity-50'>
         <nav className='sm:px-8 sm:py-5 lg:px-12 p-4'>
           <Image
             className='h-auto w-auto'
