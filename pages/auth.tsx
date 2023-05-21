@@ -1,14 +1,21 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react"
 import Image from 'next/image'
 import Input from '@/components/Input'
 
 export default function Auth() {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+  }, [])
+
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [variant, setVariant] = useState<'login' | 'register'>('login')
+
+  const router = useRouter()
 
   const toggleVariant = () => {
     setVariant((currentVariant) =>
@@ -16,18 +23,42 @@ export default function Auth() {
     )
   }
 
+  const login = useCallback(async () => {
+    try {
+      await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: '/'
+      });
+
+      await router.push('/')
+    } catch (e) {
+      console.log(e)
+    }
+  }, [email, password, router])
+
+  const register = useCallback(async () => {
+    try {
+      await axios.post('/api/register', {
+        email,
+        name,
+        password
+      })
+
+      await login()
+    } catch (e) {
+      console.log(e)
+    }
+  }, [email, name, password, login])
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       if (variant === 'login') {
-        await signIn('credentials', {
-          email,
-          password,
-          redirect: false,
-          callbackUrl: '/'
-        })
+        await login()
       } else {
-        await axios.post('/api/register', { email, name, password })
+        await register()
       }
     } catch (e) {
       console.error(e)
