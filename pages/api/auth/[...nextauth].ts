@@ -1,4 +1,4 @@
-import NextAuth from "next-auth/src/next"
+import NextAuth from 'next-auth';
 import Credentials from "next-auth/providers/credentials"
 import {compare} from 'bcrypt'
 import prismadb from '@/libs/prismadb'
